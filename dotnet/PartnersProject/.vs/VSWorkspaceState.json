@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\PartnersProject",
+    "\\PartnersProject\\bin\\Release",
+    "\\PartnersProject\\Controllers",
+    "\\PartnersProject\\obj\\Debug\\net8.0",
+    "\\PartnersProject\\obj\\Debug\\net8.0\\ref",
+    "\\PartnersProject\\obj\\Debug\\net8.0\\refint",
+    "\\PartnersProject\\obj\\Debug\\net8.0\\staticwebassets",
+    "\\PartnersProject\\obj\\Release\\net8.0",
+    "\\PartnersProject\\Properties"
+  ],
+  "SelectedNode": "\\PartnersProject\\init-db.sql",
+  "PreviewInSolutionExplorer": false
+}

@@ -1,0 +1,13 @@
+services:
+  partnersproject:
+    image: ${DOCKER_REGISTRY-}partnersproject
+    build:
+      context: .
+      dockerfile: PartnersProject/Dockerfile
+    depends_on:
+        - sql-server-db
+
+  sql-server-db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "1433:1433"

@@ -1,0 +1,91 @@
+name: dockercompose17664064835057840893
+services:
+  db:
+    container_name: db-sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: Pass@word
+    image: mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04
+    networks:
+      app-network-public: null
+    ports:
+      - mode: ingress
+        target: 1433
+        published: "1433"
+        protocol: tcp
+    restart: always
+    volumes:
+      - type: volume
+        source: sql-server-data
+        target: /var/opt/mssql
+        volume: {}
+      - type: volume
+        source: sqldata
+        target: /var/opt/sqlserver/data
+        volume: {}
+      - type: volume
+        source: sqllog
+        target: /var/opt/sqlserver/log
+        volume: {}
+      - type: volume
+        source: sqlbackup
+        target: /var/opt/sqlserver/backup
+        volume: {}
+      - type: bind
+        source: /c/docker/shared
+        target: /usr/shared
+        bind:
+          create_host_path: true
+  partnersproject:
+    build:
+      context: C:\Users\jacob\Desktop\DVTest\dotnet\PartnersProject
+      dockerfile: PartnersProject/Dockerfile
+    depends_on:
+      db:
+        condition: service_started
+        required: true
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+      ASPNETCORE_HTTPS_PORTS: "8081"
+    image: partnersproject
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8080
+        published: "8080"
+        protocol: tcp
+      - mode: ingress
+        target: 8081
+        published: "8081"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\Users\jacob\AppData\Roaming/Microsoft/UserSecrets
+        target: /home/app/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\jacob\AppData\Roaming/ASP.NET/Https
+        target: /home/app/.aspnet/https
+        read_only: true
+        bind:
+          create_host_path: true
+networks:
+  app-network-public:
+    name: dockercompose17664064835057840893_app-network-public
+    driver: bridge
+  default:
+    name: dockercompose17664064835057840893_default
+volumes:
+  sql-server-data:
+    name: dockercompose17664064835057840893_sql-server-data
+    driver: local
+  sqlbackup:
+    name: dockercompose17664064835057840893_sqlbackup
+  sqldata:
+    name: dockercompose17664064835057840893_sqldata
+  sqllog:
+    name: dockercompose17664064835057840893_sqllog
