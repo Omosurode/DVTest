@@ -3,7 +3,7 @@ version: '3.4'
 services:
   partnersproject:
     image: partnersproject:dev
-    container_name: "PartnersProject_1"
+    container_name: "PartnersProject"
     build:
       args:
         BUILD_CONFIGURATION: Debug

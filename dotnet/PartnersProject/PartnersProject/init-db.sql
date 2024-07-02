@@ -1,34 +1,46 @@
-CREATE DATABASE UserDB;
+IF DB_ID('UserDB') IS NULL
+    CREATE DATABASE UserDB;
 GO
 
 USE UserDB;
 GO
 
--- Create the table Personas
-CREATE TABLE Personas (
-    ID INT PRIMARY KEY IDENTITY,
-    Nombres NVARCHAR(50) NOT NULL,
-    Apellidos NVARCHAR(50) NOT NULL,
-    NumeroID INT NOT NULL,
-    Email NVARCHAR(255) NOT NULL,
-    TipoID INT NOT NULL,
-    FechaCreado DATE DEFAULT GETDATE(),
-    NumeroTipoID AS CONCAT(NumeroID, TipoID),
-    NombreCompleto As CONCAT(Nombres, ' ', Apellidos)
-);
+-- Create the table Personas if it doesn't exist
+IF OBJECT_ID('dbo.Personas', 'U') IS NULL
+BEGIN
+    CREATE TABLE Personas (
+        ID INT PRIMARY KEY IDENTITY,
+        Nombres NVARCHAR(50) NOT NULL,
+        Apellidos NVARCHAR(50) NOT NULL,
+        NumeroID INT NOT NULL,
+        Email NVARCHAR(255) NOT NULL,
+        TipoID INT NOT NULL,
+        FechaCreado DATE DEFAULT GETDATE(),
+        NumeroTipoID AS CONCAT(NumeroID, TipoID),
+        NombreCompleto AS CONCAT(Nombres, ' ', Apellidos)
+    );
+END;
 GO
 
--- Create the table Usuarios
-CREATE TABLE Usuarios (
-    Identificador INT REFERENCES Personas,
-    Usuario NVARCHAR(50) NOT NULL,
-    Pass NVARCHAR(50) NOT NULL,
-    FechaCreado DATE DEFAULT GETDATE(),
-    PRIMARY key(Identificador)
-);
+-- Create the table Usuarios if it doesn't exist
+IF OBJECT_ID('dbo.Usuarios', 'U') IS NULL
+BEGIN
+    CREATE TABLE Usuarios (
+        Identificador INT REFERENCES Personas,
+        Usuario NVARCHAR(50) NOT NULL,
+        Pass NVARCHAR(50) NOT NULL,
+        FechaCreado DATE DEFAULT GETDATE(),
+        PRIMARY KEY (Identificador)
+    );
+END;
 GO
 
--- Create stored procedures
+-- Drop the stored procedure Persona_SelectV1 if it exists
+IF OBJECT_ID('dbo.Persona_SelectV1', 'P') IS NOT NULL
+    DROP PROCEDURE dbo.Persona_SelectV1;
+GO
+
+-- Create stored procedure Persona_SelectV1
 CREATE PROC [dbo].[Persona_SelectV1]
 AS
 
@@ -40,7 +52,6 @@ EXEC dbo.Persona_SelectV1
 
 BEGIN
     SELECT * FROM Personas;
-    SELECT * FROM Usuarios;
 END;
 GO
 
@@ -50,6 +61,12 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+-- Drop the stored procedure Persona_InsertV1 if it exists
+IF OBJECT_ID('dbo.Persona_InsertV1', 'P') IS NOT NULL
+    DROP PROCEDURE dbo.Persona_InsertV1;
+GO
+
+-- Create stored procedure Persona_InsertV1
 CREATE PROC [dbo].[Persona_InsertV1]
     @Nombres NVARCHAR(50),
     @Apellidos NVARCHAR(50),
