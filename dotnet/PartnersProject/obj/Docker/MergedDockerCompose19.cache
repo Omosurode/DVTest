@@ -1,0 +1,17 @@
+name: dockercompose17664064835057840893
+services:
+  client:
+    build:
+      context: C:\Users\jacob\Desktop\DVTest\dotnet\PartnersProject\dvtest
+      dockerfile: Dockerfile
+    container_name: client
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 3000
+        published: "3000"
+        protocol: tcp
+networks:
+  default:
+    name: dockercompose17664064835057840893_default
