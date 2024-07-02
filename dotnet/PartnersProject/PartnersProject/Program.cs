@@ -29,7 +29,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-string sqlConnectionString = Connection.connectionString;
+string sqlConnectionString = Connection.initializationString;
 
 string script = File.ReadAllText("init-db.sql");
 SqlConnection conn = new SqlConnection(sqlConnectionString);
