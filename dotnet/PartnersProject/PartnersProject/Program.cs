@@ -4,6 +4,8 @@ using Microsoft.SqlServer.Management.Smo;
 using PartnersProject.Data;
 using Microsoft.Data.SqlClient;
 using System.IO;
+using System.Web.Http.Cors;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +26,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(builder => builder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
 
 app.UseAuthorization();
 

@@ -129,3 +129,34 @@ BEGIN
                         @Pass)
 END;
 GO
+
+-- Drop the stored procedure Usuario_LoginV1 if it exists
+IF OBJECT_ID('dbo.Usuario_LoginV1', 'P') IS NOT NULL
+    DROP PROCEDURE dbo.Usuario_LoginV1;
+GO
+
+-- Create stored procedure Usuario_LoginV1
+CREATE PROC [dbo].[Usuario_LoginV1]
+    @Usuario NVARCHAR(50),
+    @Pass NVARCHAR(50)
+AS
+
+/*------------ TEST CODE --------------
+-- Usuario Table params
+Declare @Usuario NVARCHAR(50) = 'testformuser123',
+        @Pass NVARCHAR(50) = 'pass@word'
+	
+EXEC dbo.Usuario_LoginV1						
+                        @Usuario,
+                        @Pass
+
+*/
+
+BEGIN
+
+    SELECT 1 FROM Usuarios 
+                WHERE Usuario = @Usuario 
+                AND Pass = @Pass
+
+END;
+GO
