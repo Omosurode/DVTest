@@ -45,6 +45,11 @@ To run this application, you need to have Docker Engine installed on your machin
     docker-compose up
     ```
 
+ 3. Access the application:
+
+Swagger page: http://localhost:8080/swagger
+Frontend application: http://localhost:3000
+
 ### Note
 
 This server runs on HTTP instead of HTTPS because .NET requires an SSL certificate to run, and there's no way to automate it with Docker Compose.
