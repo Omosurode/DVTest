@@ -47,7 +47,7 @@ To run this application, you need to have Docker Engine installed on your machin
 
  3. Access the application:
 
-Swagger page: http://localhost:8080/swagger
+Swagger page: http://localhost:8080/swagger   
 Frontend application: http://localhost:3000
 
 ### Note
