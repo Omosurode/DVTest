@@ -297,7 +297,7 @@ function App() {
                       <p className="text-center h1 fw-bold mb-5 mt-4">
                         Ingresar
                       </p>
-                      <form onSubmit={handleLogin} className="w-50 ">
+                      <form onSubmit={handleLogin} className="w-50 m-auto ">
                         <div className="form-group">
                           <label htmlFor="username">Usuario</label>
                           <input
