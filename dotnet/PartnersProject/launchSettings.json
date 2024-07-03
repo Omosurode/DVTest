@@ -8,7 +8,8 @@
       "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/swagger",
       "serviceActions": {
         "partnersproject": "StartDebugging",
-        "sql-server-db": "StartWithoutDebugging"
+        "sql-server-db": "StartWithoutDebugging",
+        "client": "StartWithoutDebugging"
       }
     }
   }
