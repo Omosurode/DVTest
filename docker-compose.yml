@@ -21,7 +21,7 @@ services:
 
   client:
     build:
-      context: ./dvtest/
+      context: ./client/
       dockerfile: Dockerfile
     container_name: client
     ports:
