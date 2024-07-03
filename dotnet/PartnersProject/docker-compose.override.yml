@@ -2,22 +2,29 @@ services:
   partnersproject:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
-      - ASPNETCORE_HTTPS_PORTS=8081
     ports:
       - "8080:8080"
-      - "8081:8081"
     volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
     depends_on:
       - sql-server-db
 
   sql-server-db:
-     image: mcr.microsoft.com/mssql/server:2022-latest
-     environment:
-       ACCEPT_EULA: "Y"
-       MSSQL_SA_PASSWORD: "Pass@word"
-     ports:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Pass@word"
+    ports:
       - "1433:1433"
-     
+
+  client:
+    build:
+      context: ./dvtest/
+      dockerfile: Dockerfile
+    container_name: client
+    ports:
+      - "3000:3000"
+    depends_on:
+      - sql-server-db
+      - partnersproject

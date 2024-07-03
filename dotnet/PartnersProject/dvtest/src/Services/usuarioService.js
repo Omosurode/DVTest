@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const endpoint = `https://localhost:8081/api/UserApi`;
+const endpoint = `http://localhost:8080/api/UserApi`;
 
 const loginUser = (payload) => {
     const config = {

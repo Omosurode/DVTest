@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const endpoint = `https://localhost:8081/api/PersonasApi`;
+const endpoint = `http://localhost:8080/api/PersonasApi`;
 
 const addPersona = (payload) => {
     const config = {
